@@ -5,42 +5,7 @@
 * Turn on outputbuffering for servers that have it disabled.
 */
 ob_start();
-?>
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Joomla json Check</title>
-	<style>
-	.btn {
-		/* Structure */
-		display: inline-block;
-		zoom: 1;
-		line-height: normal;
-		white-space: nowrap;
-		vertical-align: middle;
-		text-align: center;
-		cursor: pointer;
-		-webkit-user-drag: none;
-		-webkit-user-select: none;
-		-moz-user-select: none;
-		-ms-user-select: none;
-		user-select: none;
-		-webkit-box-sizing: border-box;
-		-moz-box-sizing: border-box;
-		box-sizing: border-box;
-		font-family: inherit;
-		font-size: 100%;
-		padding: 0.5em 1em;
-		border: 1px solid #999;  /*IE 6/7/8*/
-		border: none rgba(0, 0, 0, 0);  /*IE9 + everything else*/
-		background-color: rgb(0, 120, 231);
-		color: #fff;
-		text-decoration: none;
-		border-radius: 2px;
-	}
-	</style>
-</head>
-<body>
+ 
 	<?php
 	//Initiate Joomla so we can use it's functions
 	/**
@@ -85,10 +50,19 @@ ob_start();
 	}
 
 	//We use this for both checks
+	/*
+	UPDATE healtyv2_users SET params = REPLACE(params,'&quot;','"');
+UPDATE healtyv2_categories SET params = REPLACE(params,'&quot;','"');
+UPDATE healtyv2_categories SET rules = REPLACE(rules,'&quot;','"');
+UPDATE healtyv2_categories SET metadata= REPLACE(metadata,'&quot;','"');
+UPDATE healtyv2_content SET images = REPLACE(images,'&quot;','"');
+UPDATE healtyv2_content SET urls = REPLACE(urls,'&quot;','"');
+UPDATE healtyv2_content SET attribs = REPLACE(attribs,'&quot;','"');
+*/
 	$query = $db->getQuery(true)
 	->select('TABLE_NAME,COLUMN_NAME')
 	->from('INFORMATION_SCHEMA.COLUMNS')
-	->where('COLUMN_NAME = \'params\' OR COLUMN_NAME = \'rules\'')
+	->where('COLUMN_NAME = \'params\' OR COLUMN_NAME = \'rules\' OR COLUMN_NAME = \'metadata\'') 
 	->andWhere('TABLE_SCHEMA = \'' . $config->get('db') . '\'');
 
 	$db->setQuery($query);
@@ -159,9 +133,14 @@ ob_start();
 									*/
 									$tableFix = $result->TABLE_NAME;
 									$columnFix = $result->COLUMN_NAME;
-									$sqlFix = 'UPDATE '. $tableFix.' REPLACE('.$columnFix.',\'&quot;\',\'"\')';
+									$sqlFix = 'UPDATE '. $tableFix.' SET '.$columnFix.' REPLACE('.$columnFix.',\'&quot;\',\'"\')';
 									echo "<br\>".$sqlFix."<br\>";
 									$resultFix = $db->setQuery($sqlFix);
+									$db->execute();
+
+									UPDATE #__content SET images = REPLACE(images,'&quot;','"');
+									UPDATE #__content SET urls = REPLACE(urls,'&quot;','"');
+									UPDATE #__content SET attribs = REPLACE(attribs,'&quot;','"');
 									if ($resultFix)
 									{ 
 										echo "Table $tableFix Replaced.";
@@ -186,5 +165,3 @@ ob_start();
 				</form>
 
 			<?php endif; ?>
-		</body>
-		</html>

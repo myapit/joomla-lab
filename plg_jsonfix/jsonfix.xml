@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<extension version="3.1" type="plugin" group="jsonfixcore" method="upgrade">
+	<name>plg_jsonfix</name>
+	<author>mhafeez@usm.my</author>
+	<creationDate>November 2016</creationDate>
+	<copyright>Copyright (C) 2005 - 2013 Open Source Matters. All rights reserved.</copyright>
+	<license>GNU General Public License version 2 or later; see LICENSE.txt</license>
+	<authorEmail>mhafeez@usm.my</authorEmail>
+	<authorUrl>ppkt.usm.my</authorUrl>
+	<version>1.0</version>
+	<description>PLG_JSONFIX</description>
+	<files>
+		<filename plugin="jsonfix">jsonfix.php</filename>
+		<filename>jsonfix.utf8.sql</filename>
+	</files>
+	<install>
+     <sql>
+         <file driver="mysql" charset="utf8">jsonfix.utf8.sql</file>
+     </sql>
+	</install>
+	<config>
+	</config>
+</extension>
