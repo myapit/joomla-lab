@@ -160,6 +160,7 @@ ob_start();
 									$tableFix = $result->TABLE_NAME;
 									$columnFix = $result->COLUMN_NAME;
 									$sqlFix = 'UPDATE '. $tableFix.' REPLACE('.$columnFix.',\'&quot;\',\'"\')';
+									echo "<br\>".$sqlFix$."<br\>";
 									$resultFix = $db->setQuery($sqlFix);
 									if ($resultFix)
 									{ 
