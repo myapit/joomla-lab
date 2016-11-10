@@ -153,6 +153,21 @@ ob_start();
 									$first_key = key($row);
 									echo "Row {$row[$first_key]} is not valid JSON. Error: ($error)<br>";
 									echo "Content: {$row[$result->COLUMN_NAME]}<br><hr>";
+									/*
+									* Fix Code Begin Here ...
+									* REPLACE(params,'&quot;','"')
+									*/
+									$tableFix = $result->TABLE_NAME;
+									$columnFix = $result->COLUMN_NAME;
+									$sqlFix = 'UPDATE $tableFix REPLACE($columnFix,\'&quot;\',\'"\')';
+									$resultFix = $db->setQuery($sqlFix);
+									if ($resultFix) { echo "Table $tableFix Replaced."}
+										else { echo "Table $tableFix FAILED !!";}
+
+									/*
+									*Fix Code End Here*
+									*/
+
 								}
 							}
 						}
