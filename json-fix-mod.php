@@ -161,7 +161,8 @@ ob_start();
 									$columnFix = $result->COLUMN_NAME;
 									$sqlFix = 'UPDATE $tableFix REPLACE($columnFix,\'&quot;\',\'"\')';
 									$resultFix = $db->setQuery($sqlFix);
-									if ($resultFix) { echo "Table $tableFix Replaced."}
+									if ($resultFix)
+										{ echo "Table $tableFix Replaced.";}
 										else { echo "Table $tableFix FAILED !!";}
 
 									/*
