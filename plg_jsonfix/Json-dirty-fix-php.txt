@@ -1,0 +1,6 @@
+#$decoded = json_decode(html_entity_decode($data));
+                // Check for an error decoding the data
+                if ($decoded === null)
+                {
+                        #throw new \RuntimeException(sprintf('Error decoding JSON data: %s', json_last_error_msg()));
+                        throw new \RuntimeException(sprintf('Error decoding JSON data: %s the bad data is: %s', json_last_error_msg(), $data));
