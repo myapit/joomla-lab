@@ -8,7 +8,7 @@
 	<authorEmail>mhafeez@usm.my</authorEmail>
 	<authorUrl>ppkt.usm.my</authorUrl>
 	<version>1.0</version>
-	<description>PLG_JSONFIX</description>
+	<description>Plugin to fix json issue (data replace)</description>
 	<files>
 		<filename plugin="jsonfix">jsonfix.php</filename>
 		<filename>jsonfix.utf8.sql</filename>
@@ -18,6 +18,11 @@
          <file driver="mysql" charset="utf8">jsonfix.utf8.sql</file>
      </sql>
 	</install>
+	<update> 
+	    <sql>
+         <file driver="mysql" charset="utf8">jsonfix.utf8.sql</file>
+     </sql>
+	</update>
 	<config>
 	</config>
 </extension>
